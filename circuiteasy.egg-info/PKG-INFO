@@ -1,0 +1,24 @@
+Metadata-Version: 2.4
+Name: circuiteasy
+Version: 0.1.0
+Summary: ELE142 and general circuit analysis tools for fast, clear Python calculations.
+Home-page: https://github.com/haljoumaa/circuiteasy.git
+Author: Hareth Al-jomaa
+Author-email: harethaljomaa@outlook.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: sympy
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

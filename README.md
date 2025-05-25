@@ -1,4 +1,4 @@
-circuiteasy
+Circuiteasy
 
 Fast, exam-friendly Python utilities for circuit analysis and electronics students.
 

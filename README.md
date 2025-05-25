@@ -61,5 +61,5 @@ MIT
 
 👤 Author
 
-Hareth Aljoumaa (haljoumaa)
+Hareth Aljomaa (haljoumaa)
 

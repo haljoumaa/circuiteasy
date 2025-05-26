@@ -43,8 +43,6 @@ def solve_equations(variables, equations, component_values):
         formatted.append(f"{var}: ({val_c.real:.4f}) + ({val_c.imag:.4f})j\n")
     return {"formatted": formatted, "values": values}
 
-import sympy as sp
-
 def simplify(eqns, unknowns, values):
     """
     Take equations as strings, unknowns as strings, and values as a dict.

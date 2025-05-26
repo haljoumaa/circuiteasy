@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="circuiteasy",
-    version="0.1.0",
+    version="0.2.0",
     description="ELE142 and general circuit analysis tools for fast, clear Python calculations.",
     author="Hareth Al-jomaa",
     author_email="harethaljomaa@outlook.com",

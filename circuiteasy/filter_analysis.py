@@ -19,31 +19,37 @@ def cutoff_freq_RL(R, L):
     fc = R / (2 * math.pi * L)
     wc = R / L
     return fc, wc
+import numpy as np
+import matplotlib.pyplot as plt
 
 def bode_plot_first_order(R, C=None, L=None, filter_type='RC_lowpass', Vin=1):
     """
-    Plott Bode-magnitude og -fase for førsteordens RC eller RL filter.
-    Hvis Vin oppgis, vises Vout = |H| * Vin både i dB og volt.
+    Plots Bode magnitude and phase for first-order RC or RL filters.
     """
+    filter_type = filter_type.lower()  # Normalize casing
     freqs = np.logspace(1, 6, 500)
     w = 2 * np.pi * freqs
 
-    if filter_type.startswith('RC'):
+    if filter_type.startswith('rc'):
         if C is None:
             raise ValueError("C must be provided for RC filter.")
-        if filter_type == 'RC_lowpass':
+        if filter_type == 'rc_lowpass':
             H = 1 / (1 + 1j * w * R * C)
-        elif filter_type == 'RC_highpass':
+        elif filter_type == 'rc_highpass':
             H = (1j * w * R * C) / (1 + 1j * w * R * C)
-    elif filter_type.startswith('RL'):
+        else:
+            raise ValueError("filter_type must be 'rc_lowpass' or 'rc_highpass' for RC filters.")
+    elif filter_type.startswith('rl'):
         if L is None:
             raise ValueError("L must be provided for RL filter.")
-        if filter_type == 'RL_lowpass':
-            H = R / np.sqrt(R**2 + (w*L)**2) * np.exp(-1j * np.arctan(w*L/R))
-        elif filter_type == 'RL_highpass':
+        if filter_type == 'rl_lowpass':
+            H = R / (R + 1j * w * L)
+        elif filter_type == 'rl_highpass':
             H = (1j * w * L) / (R + 1j * w * L)
+        else:
+            raise ValueError("filter_type must be 'rl_lowpass' or 'rl_highpass' for RL filters.")
     else:
-        raise ValueError("filter_type må være 'RC_lowpass', 'RC_highpass', 'RL_lowpass' eller 'RL_highpass'.")
+        raise ValueError("filter_type must be 'rc_lowpass', 'rc_highpass', 'rl_lowpass' or 'rl_highpass'.")
 
     magnitude = 20 * np.log10(np.abs(H))
     phase = np.angle(H, deg=True)

@@ -176,3 +176,33 @@ def print_complex_power(S: complex):
     mag = abs(S)
     print(f" S = ({P:.2f})+ ({Q:.2f}j VA) ")
     print(f"|S| = {mag:.2f} VA \n")
+
+def db_power(Pout, Pin):
+    """
+    Returnerer effektforholdet i desibel (dB) basert på utgangs- og inngangseffekt.
+    Brukes når du sammenligner to effekter (W).
+    Formel: 10 * log10(Pout / Pin)
+    """
+    if Pin == 0:
+        raise ValueError("Inngangseffekten kan ikke være null.")
+    return 10 * math.log10(Pout / Pin)
+
+def db_power(Pout, Pin):
+    """
+    Returnerer effektforholdet i desibel (dB) basert på utgangs- og inngangseffekt.
+    Brukes når du sammenligner to effekter (W).
+    Formel: 10 * log10(Pout / Pin)
+    """
+    if Pin == 0:
+        raise ValueError("Inngangseffekten kan ikke være null.")
+    return 10 * math.log10(Pout / Pin)
+
+def db_current(Iout, Iin):
+    """
+    Returnerer strømforholdet i desibel (dB) basert på utgangs- og inngangsstrøm.
+    Brukes når du sammenligner to strømmer (A).
+    Formel: 20 * log10(Iout / Iin)
+    """
+    if Iin == 0:
+        raise ValueError("Inngangsstrømmen kan ikke være null.")
+    return 20 * math.log10(Iout / Iin)

@@ -42,3 +42,46 @@ def solve_equations(variables, equations, component_values):
         formatted.append(f"{var}: ({mag:.4f}) ∠ ({angle_deg:.4f}°)")
         formatted.append(f"{var}: ({val_c.real:.4f}) + ({val_c.imag:.4f})j\n")
     return {"formatted": formatted, "values": values}
+
+import sympy as sp
+
+def simplify(eqns, unknowns, values):
+    """
+    Take equations as strings, unknowns as strings, and values as a dict.
+    Automates symbol creation, solves, substitutes, and simplifies.
+    """
+    # 1. Gather all unique variable names from equations and unknowns/values
+    varnames = set()
+    # from equations
+    for eq in eqns:
+        varnames.update([str(sym) for sym in sp.sympify(eq).free_symbols])
+    # from unknowns & values
+    varnames.update([str(u) for u in unknowns])
+    varnames.update([str(k) for k in values.keys()])
+    # 2. Create sympy symbols for all
+    symbols = {name: sp.symbols(name) for name in varnames}
+    # 3. Parse equations as sympy expressions, turning "=" into Eq
+    parsed_eqns = []
+    for eq in eqns:
+        if "=" in eq:
+            left, right = eq.split("=")
+            parsed_eqns.append(sp.Eq(sp.sympify(left, locals=symbols), sp.sympify(right, locals=symbols)))
+        else:
+            parsed_eqns.append(sp.sympify(eq, locals=symbols))
+    # 4. Build unknown symbols
+    unknown_syms = [symbols[str(u)] for u in unknowns]
+    # 5. Substitute values as sympy symbols
+    sub_dict = {symbols[str(k)]: v for k, v in values.items()}
+    # 6. Solve
+    sol = sp.solve(parsed_eqns, unknown_syms, dict=True)
+    if not sol:
+        raise ValueError("No solution found!")
+    sol = sol[0]
+    # 7. Substitute and simplify
+    results = []
+    for var in unknowns:
+        expr = sol[symbols[var]]
+        expr_sub = expr.subs(sub_dict)
+        expr_simp = sp.simplify(expr_sub)
+        results.append(expr_simp)
+    return tuple(results)

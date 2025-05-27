@@ -1,6 +1,8 @@
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import numpy as np
+import matplotlib.pyplot as plt
 
 def cutoff_freq_RC(R, C):
     """
@@ -19,8 +21,6 @@ def cutoff_freq_RL(R, L):
     fc = R / (2 * math.pi * L)
     wc = R / L
     return fc, wc
-import numpy as np
-import matplotlib.pyplot as plt
 
 def bode_plot_first_order(R, C=None, L=None, filter_type='RC_lowpass', Vin=1):
     """
